@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap');
+
+.body{
+    font-family: 'Poppins';
+}
+
+
+
+.center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.label {
+    align-self: self-start;
+    background: white;
+    margin-bottom: -12px;
+    z-index: 1;
+    margin-left: 20px;
+    padding: 0 5px;
+}
