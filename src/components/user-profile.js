@@ -1,13 +1,16 @@
+import { useState, useEffect } from "react";
+import axios from 'axios';
 import progress from "../assets/svg/progress.svg";
 
-const names = [
-  "Tobi Adeloro",
-  "Sharon Ojo",
-  "Adedayo Jigida",
-  "Tobi Adeloro",
-  "Sharon Ojo",
-  "Adedayo Jigida",
-];
+
+// const names = [
+//   "Tobi Adeloro",
+//   "Sharon Ojo",
+//   "Adedayo Jigida",
+//   "Tobi Adeloro",
+//   "Sharon Ojo",
+//   "Adedayo Jigida",
+// ];
 
 const Avatar = ({ name }) => {
   return (
@@ -19,8 +22,57 @@ const Avatar = ({ name }) => {
 };
 
 const UserProfile = () => {
+  const [users, setUsers] = useState([]);
+
+  
+  // useEffect= (() => {
+  //   fetch('https://fintechceosforum.herokuapp.com/api/admin/getusers')
+  //   .then((response) => response.json())
+  //   .then((data) => console.log(data));
+  // }, [])
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = () => {
+  axios
+    .get('https://fintechceosforum.herokuapp.com/api/admin/getusers')
+    .then((res) => {
+      console.log(res);
+      setUsers(res.data.users);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+  
+
   return (
-    <div className=" rounded-2xl border-[1px] px-3 py-5">
+    <>
+    {/* <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+          <tr key={user.id}>
+            <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.phone_number}</td>
+                
+          </tr>
+        ))}
+            
+        </tbody>
+    </table> */}
+      <div className=" rounded-2xl border-[1px] px-3 py-5">
       <div className="flex justify-between mb-4 items-center">
         <p className="text-xl font-bold">Users Profile</p>
 
@@ -39,8 +91,8 @@ const UserProfile = () => {
           </a>
 
           <div className="grid grid-cols-3 gap-2 text-center">
-            {names.map((name) => (
-              <Avatar name={name} />
+            {users.map((user) => (
+              <Avatar name={user.name} />
             ))}
           </div>
         </div>
@@ -74,6 +126,7 @@ const UserProfile = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
